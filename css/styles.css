@@ -1,14 +1,18 @@
 /* 1. CORRECCIÓN: :root con un solo par de puntos */
 :root {
-    --bg-dark: #0f172a;       /* Un azul casi negro más profundo */
-    --bg-navy: #1e2b4a;       /* El azul de tu flyer */
-    --accent-orange: #f27405; 
-    --accent-light: #ff9d42;  /* Naranja claro para degradados */
-    --white: #ffffff;
+    /* Antes: azul muy oscuro | Ahora: Azul más vibrante y menos oscuro */
+    --primary-dark: #1e293b;       /* Un tono pizarra azulado más claro */
+    --secondary-dark: #334155;     /* Para fondos de secciones, más suave */
+    --bg-dark: #0f172a;            /* El fondo principal un poco más azulado */
+    
+    /* Mantenemos el naranja porque resalta muy bien con el nuevo azul */
+    --accent-orange: #f27405;
+    --accent-light: #ff8c00;       /* Naranja más claro para gradientes */
+    --text-light: #f8fafc;
     --text-muted: #94a3b8;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --white: #ffffff;
+    --transition: all 0.3s ease;
 }
-
 * {
     margin: 0;
     padding: 0;
@@ -17,11 +21,18 @@
 
 body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: var(--bg-dark); /* Ahora sí se verá oscuro */
-    color: var(--white);
+    background-color: var(--bg-dark);
+    color: var(--text-light);
     line-height: 1.6;
     overflow-x: hidden;
     padding-top: 100px;
+    
+}
+
+/* Las tarjetas de servicios y hosting */
+.service-card, .hosting__card {
+    background: #1e2b4a; /* Un azul intermedio para que resalte del fondo */
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .container {
@@ -186,6 +197,39 @@ body {
 .btn-secondary:hover {
     background: rgba(255,255,255,0.1);
     border-color: var(--white);
+}
+
+.btn-nav {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    position: relative;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+}
+
+.btn-nav:hover {
+    color: var(--accent-orange);
+    background: rgba(255,255,255,0.1);
+}
+
+.btn-nav::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: var(--accent-orange);
+    transition: var(--transition);
+    transform: translateX(-50%);
+}
+
+.btn-nav:hover::after {
+    width: 80%;
 }
 
 /* SECCIÓN SERVICIOS */
@@ -869,4 +913,59 @@ html {
 
 html {
     scroll-behavior: smooth;
+}
+
+/* Cambia esto solo para probar */
+.modal-overlay {
+    /* ... otros estilos ... */
+    opacity: 1;          /* Cambia 0 por 1 */
+    visibility: visible; /* Cambia hidden por visible */
+}
+/* --- MODAL DE SEGURIDAD --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 15, 30, 0.95); /* Un azul muy oscuro casi opaco */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999; /* Número muy alto para que tape todo */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+}
+
+/* Esta es la clase que el JS activará */
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: #2d3a5a;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 450px;
+    width: 90%;
+    border: 2px solid var(--accent-orange);
+    color: white;
+    text-align: center;
+}
+
+/* Elimina los puntos molestos del popup */
+.modal-list {
+    list-style: none; /* Esto quita los puntos */
+    padding: 0;      /* Elimina el espacio que dejan los puntos */
+    margin: 20px 0;  /* Mantiene el espacio arriba y abajo */
+}
+
+.modal-list li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinea los checks a la izquierda */
+    gap: 10px;                  /* Espacio entre el check y el texto */
+    margin-bottom: 10px;
 }
