@@ -52,20 +52,24 @@ document.addEventListener("DOMContentLoaded", function() {
         footerCredits.innerHTML = `&copy; ${new Date().getFullYear()} Daker Systems. Todos los derechos reservados.`;
     }
 
-    // Función para mostrar el aviso de seguridad
+// Función para mostrar el aviso de seguridad (CORREGIDA)
 function setupSecurityModal() {
     const modal = document.getElementById('security-modal');
     const closeBtn = document.getElementById('close-modal');
 
     if (modal && closeBtn) {
-        // Mostramos el popup 1 segundo después de que cargue la web
-        setTimeout(() => {
-            modal.classList.add('active');
-        }, 1000);
+        // Solo mostramos si NO lo ha visto antes (localStorage)
+        if (!localStorage.getItem('modalShown')) { 
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 1000);
+        }
 
         // Cerramos el popup al hacer clic en el botón
         closeBtn.addEventListener('click', () => {
             modal.classList.remove('active');
+            // Guardamos que ya lo vio para que no vuelva a salir
+            localStorage.setItem('modalShown', 'true'); 
         });
     }
 }
